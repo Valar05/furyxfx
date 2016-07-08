@@ -4,13 +4,6 @@
     <div class="row header">
         <div class="col-md-12">
             <img src="@routes.Assets.versioned("images/furyxfx.bmp")" class="noselect" draggable="false"/>
-            <img src="@routes.Assets.versioned("images/x.png")" class="hidden" id="x-piece"/>
-            <img src="@routes.Assets.versioned("images/bar_1.png")" class="hidden" id="bar-1-piece"/>
-
-            @for(num <- 0 to 9; png = s"images/$num.png") {
-                <img src="@routes.Assets.versioned(png)" class="hidden" id="@num-piece" class="hidden"/>
-            }
-
         </div>
     </div>
     <div class="row header">
