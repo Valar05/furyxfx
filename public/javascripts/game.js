@@ -1,10 +1,11 @@
-var piece;
+var piece = undefined;
 var walls = [];
-var score_left;
-var score_right;
+var score_left = undefined;
+var score_right = undefined;
+var gameOver = false;
 
 function startGame() {
-    piece = new component(30, 30, "x-piece", 10, 120);
+    piece = new component(28, 28, "x-piece", 10, 120);
     piece.gravity = 0.05;
 
     score_left = new component(30, 30, "0-piece", 415, 30);
@@ -22,7 +23,7 @@ var canvasArea = {
         document.getElementsByClassName("game")[0].appendChild(this.canvas);
         this.frameNo = 0;
 
-        setInterval(updateCanvas, 15);
+        this.interval = setInterval(updateCanvas, 15);
     },
     clear: function () {
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -78,9 +79,14 @@ function component(width, height, color, x, y) {
 }
 
 function updateCanvas() {
+    if(gameOver)
+        return;
+
     var x, height, gap, minHeight, maxHeight, minGap, maxGap;
     for (i = 0; i < walls.length; i += 1) {
         if (piece.hitWall(walls[i])) {
+            gameOver = true;
+            toggleResetButton();
             return;
         }
     }
@@ -126,6 +132,31 @@ function intervalCheck(n) {
 
 function accelerate(n) {
     piece.gravity = n;
+}
+
+function reset() {
+    gameOver = false;
+    canvasArea.clear();
+
+    piece = undefined;
+    walls = [];
+    score_left = undefined;
+    score_right = undefined;
+
+    var element = document.getElementsByTagName("canvas")[0];
+    element.parentNode.removeChild(element);
+
+    clearInterval(canvasArea.interval);
+
+    toggleResetButton();
+    startGame();
+}
+
+function toggleResetButton() {
+    if(gameOver)
+        document.getElementById("reset-row").className = document.getElementById("reset-row").className.replace(/\bhidden\b/,'');
+    else
+        document.getElementById("reset-row").className += " hidden";
 }
 
 window.onload = function () {

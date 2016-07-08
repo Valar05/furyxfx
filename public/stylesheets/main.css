@@ -1,13 +1,13 @@
-.header {
-    margin-bottom: 50px;
+body {
+    cursor: pointer;
 }
 
 .btn {
     border-radius: 0;
 }
 
-body {
-    cursor: pointer;
+.header {
+    margin-bottom: 50px;
 }
 
 .noselect {
