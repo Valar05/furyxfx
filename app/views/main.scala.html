@@ -12,7 +12,7 @@
         <script src="@routes.Assets.versioned("../../assets/javascripts/game.js")" type="text/javascript"></script>
     </head>
     <body>
-        <div class="container" onmousedown="accelerate(-0.2)" onmouseup="accelerate(0.05)">
+        <div class="container" touchstart="accelerate(-0.2)" onmousedown="accelerate(-0.2)" touchend="accelerate(0.05)" onmouseup="accelerate(0.05)">
             @content
         </div>
     </body>
